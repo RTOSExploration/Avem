@@ -1,0 +1,12 @@
+[+]
+LLVM_DIR=/usr/lib/llvm-14
+ARM_NONE_EABI_TOOLCHAIN_PATH=<root>/../gcc-arm-none-eabi-8-2018-q4-major
+FIRMWARE_ELF=main.elf
+
+[project-build]
+command=export WLLVM_OUTPUT_LEVEL=DEBUG LLVM_COMPILER=clang LLVM_COMPILER_PATH=$(+LLVM_DIR)/bin BINUTILS_TARGET_PREFIX=$(+ARM_NONE_EABI_TOOLCHAIN_PATH)/bin/arm-none-eabi PATH="$PATH:$(+ARM_NONE_EABI_TOOLCHAIN_PATH)/bin/" && make -j CC=wllvm OptLIB=2 OptSRC=2 all tshow && extract-bc $(+FIRMWARE_ELF) && $(+LLVM_DIR)/bin/llvm-dis $(+FIRMWARE_ELF).bc
+cwd=<root>
+errorformat=%f:%l:%m
+#output=terminal
+#pos=bottom
+save=2
